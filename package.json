@@ -11,11 +11,28 @@
     ],
     "activationEvents": [
         "onLanguage:less",
-        "onCommand:css-smart.helloWorld"
+        "onLanguage:typescriptreact",
+        "onCommand:css-smart.setGlobalPath"
     ],
     "main": "./out/extension.js",
     "contributes": {
-        "commands": []
+        "commands": [
+            {
+                "command": "css-smart.setGlobalPath",
+                "title": "hello word"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "CSS Smart",
+            "properties": {
+                "css-smart.globalPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "全局变量地址"
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",

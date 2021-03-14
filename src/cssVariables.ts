@@ -1,9 +1,10 @@
 import * as vscode from 'vscode'
+import { globalPathConfig } from './util/config'
 import findCssVariables from './util/findCssVariables'
 
 const provideCompletionItems = async (document: vscode.TextDocument, position: vscode.Position) => {
     const line = document.lineAt(position)
-    const path = `E:/\Work/\qnjypclient/\webpage/\src/\styles/theme/color.less`
+    const path = globalPathConfig.get()
 
     if (line.text.indexOf(':') === -1) {
         return
