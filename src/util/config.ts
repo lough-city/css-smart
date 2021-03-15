@@ -1,5 +1,5 @@
 import * as vscode from 'vscode'
-import { GLOBAL_PATH_KEY } from '../constants/config'
+import { GLOBAL_ALIAS_PATH_KEY, GLOBAL_PATH_KEY } from '../constants/config'
 
 class ConfigConstruction {
     constructor(public readonly key: string) {}
@@ -10,3 +10,4 @@ class ConfigConstruction {
 }
 
 export const globalPathConfig = new ConfigConstruction(GLOBAL_PATH_KEY)
+export const globalAliasPathConfig = new ConfigConstruction(GLOBAL_ALIAS_PATH_KEY)

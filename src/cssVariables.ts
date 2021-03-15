@@ -1,10 +1,11 @@
 import * as vscode from 'vscode'
 import { globalPathConfig } from './util/config'
 import findCssVariables from './util/findCssVariables'
+import { getWorkspaceRootPath } from './util/path'
 
 const provideCompletionItems = async (document: vscode.TextDocument, position: vscode.Position) => {
     const line = document.lineAt(position)
-    const path = globalPathConfig.get()
+    const path = getWorkspaceRootPath() + globalPathConfig.get()
 
     if (line.text.indexOf(':') === -1) {
         return
@@ -28,6 +29,18 @@ const provideCompletionItems = async (document: vscode.TextDocument, position: v
 
 export default function cssCompletion(context: vscode.ExtensionContext) {
     context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider('css', { provideCompletionItems }, '.', '-', 'var', 'var(')
+    )
+
+    context.subscriptions.push(
         vscode.languages.registerCompletionItemProvider('less', { provideCompletionItems }, '.', '-', 'var', 'var(')
+    )
+
+    context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider('scss', { provideCompletionItems }, '.', '-', 'var', 'var(')
+    )
+
+    context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider('stylus', { provideCompletionItems }, '.', '-', 'var', 'var(')
     )
 }

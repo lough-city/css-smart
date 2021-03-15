@@ -1,25 +1,33 @@
 {
     "name": "css-smart",
-    "displayName": "css-smart",
-    "description": "a smart css helpers.",
+    "displayName": "CSS Smart",
+    "description": "a smart css helper.",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.54.0"
     },
     "categories": [
-        "Other"
+        "Language Packs"
     ],
     "activationEvents": [
+        "onLanguage:css",
         "onLanguage:less",
+        "onLanguage:scss",
+        "onLanguage:stylus",
         "onLanguage:typescriptreact",
-        "onCommand:css-smart.setGlobalPath"
+        "onCommand:css-smart.setGlobalPath",
+        "onCommand:css-smart.setGlobalAliasPath"
     ],
     "main": "./out/extension.js",
     "contributes": {
         "commands": [
             {
                 "command": "css-smart.setGlobalPath",
-                "title": "hello word"
+                "title": "CSS: 设置全局变量文件"
+            },
+            {
+                "command": "css-smart.setGlobalAliasPath",
+                "title": "CSS: 设置别名路径文件"
             }
         ],
         "configuration": {
@@ -30,6 +38,11 @@
                     "type": "string",
                     "default": "",
                     "description": "全局变量地址"
+                },
+                "css-smart.globalAliasPath": {
+                    "type": "string",
+                    "default": "",
+                    "description": "别名跳转地址"
                 }
             }
         }
@@ -42,6 +55,7 @@
         "pretest": "npm run compile && npm run lint",
         "test": "node ./out/test/runTest.js"
     },
+    "publisher": "City",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/AnCIity/css-smart.git"
