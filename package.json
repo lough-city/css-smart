@@ -2,7 +2,7 @@
     "name": "css-smart",
     "displayName": "CSS Smart",
     "description": "a smart css helper.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "engines": {
         "vscode": "^1.54.0"
     },
@@ -58,7 +58,7 @@
     "publisher": "City",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/AnCIity/css-smart.git"
+        "url": "https://github.com/AnCIity/css-smart.git"
     },
     "keywords": [
         "css",

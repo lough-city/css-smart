@@ -1,9 +1,9 @@
 import * as vscode from 'vscode'
-import { globalPathConfig } from './util/config'
-import findCssVariables from './util/findCssVariables'
-import { getWorkspaceRootPath } from './util/path'
+import { globalPathConfig } from '../util/config'
+import findCssVariables from '../util/findCssVariables'
+import { getWorkspaceRootPath } from '../util/path'
 
-const provideCompletionItems = async (document: vscode.TextDocument, position: vscode.Position) => {
+const provideCompletionItems = (document: vscode.TextDocument, position: vscode.Position) => {
     const line = document.lineAt(position)
     const path = getWorkspaceRootPath() + globalPathConfig.get()
 

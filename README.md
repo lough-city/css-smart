@@ -2,6 +2,12 @@
 
 A smart css helper.
 
+# Function
+
+-   TSX 文件内跳转 CSS 文件， 支持：.css .less .scss .styl
+
+-   CSS 变量自动检测提示补全，支持：CSS
+
 # Start Use
 
 1、ctrl+shift+p
@@ -12,4 +18,6 @@ A smart css helper.
 
 # TODO List
 
-- 自动检测匹配变量值,点击替换
+-   自动检测匹配变量值,点击替换
+
+-   CSS 变量自动检测提示补全，后续支持，less 变量 scss 变量 stylus 变量
