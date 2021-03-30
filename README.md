@@ -4,7 +4,7 @@ A smart css helper.
 
 # Function
 
--   TSX 文件内跳转 CSS 文件， 支持：.css .less .scss .styl
+-   TSX 文件内跳转 CSS 文件，支持别名默认识别 tsconfig.json， 支持：.css .less .scss .styl
 
 -   CSS 变量自动检测提示补全，支持：CSS
 

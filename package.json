@@ -16,7 +16,8 @@
         "onLanguage:stylus",
         "onLanguage:typescriptreact",
         "onCommand:css-smart.setGlobalPath",
-        "onCommand:css-smart.setGlobalAliasPath"
+        "onCommand:css-smart.setGlobalAliasPath",
+        "onCommand:css-smart.codelensAction"
     ],
     "main": "./out/extension.js",
     "contributes": {
