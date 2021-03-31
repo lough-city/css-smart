@@ -5,15 +5,11 @@ import { getWorkspaceRootPath } from './path'
 class ConfigConstruction {
     constructor(public readonly key: string) {}
 
-    get() {
-        return vscode.workspace.getConfiguration().get(this.key) as string
-    }
+    get = () => vscode.workspace.getConfiguration().get(this.key) as string
 
-    set(v: string) {
-        return vscode.workspace.getConfiguration().update(this.key, v)
-    }
+    set = (v: string) => vscode.workspace.getConfiguration().update(this.key, v)
 
-    setCurrentFilePath() {
+    setCurrentFilePath = () => {
         const path = vscode.window.activeTextEditor?.document.uri.fsPath
         const rootPath = getWorkspaceRootPath()
 
