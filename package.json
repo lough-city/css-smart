@@ -2,7 +2,7 @@
     "name": "css-smart",
     "displayName": "CSS Smart",
     "description": "a smart css helper.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "engines": {
         "vscode": "^1.54.0"
     },
@@ -24,11 +24,11 @@
         "commands": [
             {
                 "command": "css-smart.setGlobalPath",
-                "title": "CSS: 设置全局变量文件"
+                "title": "CSS Smart: Set Global Visible Path"
             },
             {
                 "command": "css-smart.setGlobalAliasPath",
-                "title": "CSS: 设置别名路径文件"
+                "title": "CSS Smart: Set Global Alias Path"
             }
         ],
         "configuration": {
@@ -38,12 +38,12 @@
                 "css-smart.globalPath": {
                     "type": "string",
                     "default": "",
-                    "description": "全局变量地址"
+                    "description": "global visible path"
                 },
                 "css-smart.globalAliasPath": {
                     "type": "string",
                     "default": "",
-                    "description": "别名跳转地址"
+                    "description": "alias path"
                 }
             }
         }
