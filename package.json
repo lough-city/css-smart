@@ -2,7 +2,7 @@
     "name": "css-smart",
     "displayName": "CSS Smart",
     "description": "a smart css helper.",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "engines": {
         "vscode": "^1.54.0"
     },
