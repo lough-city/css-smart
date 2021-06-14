@@ -45,12 +45,16 @@ export class CodelensProvider implements vscode.CodeLensProvider {
         const path = getWorkspaceRootPath() + globalPathConfig.get()
         let matches, matchedAlias
 
-        if (path === '') {
+        if (path === '' || path === document.uri.fsPath) {
             return
         }
 
-        const lessVariables = Object.assign({}, findCssVariables(path))
+        const lessVariables = Object.assign({}, findCssVariables(path, path.split('.')?.[1] || 'css'))
         while ((matches = regex.exec(text)) !== null) {
+            if (matches[0].includes('--')) {
+                continue
+            }
+
             matchedAlias = matchLessVariable(lessVariables, matches[1])
             if (matchedAlias) {
                 const line = document.lineAt(document.positionAt(matches.index).line)

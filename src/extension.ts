@@ -11,7 +11,9 @@ export function activate(context: vscode.ExtensionContext) {
     /* TSX 跳转 CSS 文件 */
     tsxDefinition(context)
 
+    vscode.languages.registerCodeLensProvider('css', new CodelensProvider())
     vscode.languages.registerCodeLensProvider('less', new CodelensProvider())
+    vscode.languages.registerCodeLensProvider('scss', new CodelensProvider())
 
     context.subscriptions.push(
         // 设置全局变量文件

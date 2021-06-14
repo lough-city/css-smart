@@ -7,11 +7,11 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
     const line = document.lineAt(position)
     const path = getWorkspaceRootPath() + globalPathConfig.get()
 
-    if (line.text.indexOf(':') === -1) {
+    if (line.text.indexOf(':') === -1 && path.split('.')?.[1] !== 'styl') {
         return
     }
 
-    const variables = Object.assign({}, findCssVariables(path))
+    const variables = Object.assign({}, findCssVariables(path, path.split('.')?.[1] || 'css'))
 
     return Object.keys(variables).map(variable => {
         const variableValue = variables[variable]
