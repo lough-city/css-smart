@@ -29,18 +29,18 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
 
 export default function cssCompletion(context: vscode.ExtensionContext) {
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider('css', { provideCompletionItems }, '.', '-', 'var', 'var(')
+        vscode.languages.registerCompletionItemProvider('css', { provideCompletionItems }, '--', 'var', 'var(')
     )
 
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider('less', { provideCompletionItems }, '.', '-', 'var', 'var(')
+        vscode.languages.registerCompletionItemProvider('less', { provideCompletionItems }, '--', 'var', 'var(')
     )
 
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider('scss', { provideCompletionItems }, '.', '-', 'var', 'var(')
+        vscode.languages.registerCompletionItemProvider('scss', { provideCompletionItems }, '--', 'var', 'var(')
     )
 
     context.subscriptions.push(
-        vscode.languages.registerCompletionItemProvider('stylus', { provideCompletionItems }, '.', '-', 'var', 'var(')
+        vscode.languages.registerCompletionItemProvider('stylus', { provideCompletionItems }, '--', 'var', 'var(')
     )
 }
