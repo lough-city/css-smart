@@ -1,0 +1,17 @@
+# 统一编辑器风格
+# 编辑器 默认设置
+root = true
+
+[*]
+# 缩进风格
+indent_style = space
+# 缩进大小
+indent_size = 2
+# 编码格式
+charset = utf-8
+# 去除多余的空格
+trim_trailing_whitespace = false
+# 在尾部插入一行
+insert_final_newline = false
+# 换行符
+end_of_line = lf

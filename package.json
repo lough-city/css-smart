@@ -1,88 +1,100 @@
 {
-    "name": "css-smart",
-    "displayName": "CSS Smart",
-    "description": "a smart css helper.",
-    "version": "0.0.5",
-    "engines": {
-        "vscode": "^1.54.0"
-    },
-    "categories": [
-        "Language Packs"
+  "name": "css-smart",
+  "displayName": "CSS Smart",
+  "description": "a smart css helper.",
+  "version": "0.0.5",
+  "engines": {
+    "vscode": "^1.54.0"
+  },
+  "categories": [
+    "Language Packs"
+  ],
+  "activationEvents": [
+    "onLanguage:css",
+    "onLanguage:less",
+    "onLanguage:scss",
+    "onLanguage:stylus",
+    "onLanguage:typescriptreact",
+    "onCommand:css-smart.setGlobalPath",
+    "onCommand:css-smart.setGlobalAliasPath",
+    "onCommand:css-smart.codelensAction"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "css-smart.setGlobalPath",
+        "title": "CSS Smart: Set Global Visible Path"
+      },
+      {
+        "command": "css-smart.setGlobalAliasPath",
+        "title": "CSS Smart: Set Global Alias Path"
+      }
     ],
-    "activationEvents": [
-        "onLanguage:css",
-        "onLanguage:less",
-        "onLanguage:scss",
-        "onLanguage:stylus",
-        "onLanguage:typescriptreact",
-        "onCommand:css-smart.setGlobalPath",
-        "onCommand:css-smart.setGlobalAliasPath",
-        "onCommand:css-smart.codelensAction"
-    ],
-    "main": "./out/extension.js",
-    "contributes": {
-        "commands": [
-            {
-                "command": "css-smart.setGlobalPath",
-                "title": "CSS Smart: Set Global Visible Path"
-            },
-            {
-                "command": "css-smart.setGlobalAliasPath",
-                "title": "CSS Smart: Set Global Alias Path"
-            }
-        ],
-        "configuration": {
-            "type": "object",
-            "title": "CSS Smart",
-            "properties": {
-                "css-smart.globalPath": {
-                    "type": "string",
-                    "default": "",
-                    "description": "global visible path"
-                },
-                "css-smart.globalAliasPath": {
-                    "type": "string",
-                    "default": "",
-                    "description": "alias path"
-                }
-            }
+    "configuration": {
+      "type": "object",
+      "title": "CSS Smart",
+      "properties": {
+        "css-smart.globalPath": {
+          "type": "string",
+          "default": "",
+          "description": "global visible path"
+        },
+        "css-smart.globalAliasPath": {
+          "type": "string",
+          "default": "",
+          "description": "alias path"
         }
-    },
-    "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "lint": "eslint src --ext ts",
-        "watch": "tsc -watch -p ./",
-        "pretest": "npm run compile && npm run lint",
-        "test": "node ./out/test/runTest.js"
-    },
-    "publisher": "City",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/AnCIity/css-smart.git"
-    },
-    "keywords": [
-        "css",
-        "vscode"
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js",
+    "lint:es": "eslint -c .eslintrc.js --ext .ts,.tsx ./",
+    "lint:es-fix": "eslint --fix -c .eslintrc.js --ext .ts,.tsx ./",
+    "prepare": "husky install"
+  },
+  "publisher": "City",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnCIity/css-smart.git"
+  },
+  "keywords": [
+    "css",
+    "vscode"
+  ],
+  "author": "City",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AnCIity/css-smart/issues"
+  },
+  "homepage": "https://github.com/AnCIity/css-smart#readme",
+  "devDependencies": {
+    "@lough/commitlint-config": "^0.1.1",
+    "@lough/eslint-config": "^0.1.0",
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "@types/vscode": "^1.54.0",
+    "glob": "^7.1.6",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "mocha": "^7.1.2",
+    "prettier": "^2.7.1",
+    "typescript": "^3.8.3",
+    "vscode-test": "^1.3.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint -c .eslintrc.js --ext .ts,.tsx"
     ],
-    "author": "City",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/AnCIity/css-smart/issues"
-    },
-    "homepage": "https://github.com/AnCIity/css-smart#readme",
-    "devDependencies": {
-        "@types/glob": "^7.1.1",
-        "@types/mocha": "^7.0.2",
-        "@types/node": "^13.11.0",
-        "@types/vscode": "^1.54.0",
-        "@typescript-eslint/eslint-plugin": "^2.30.0",
-        "@typescript-eslint/parser": "^2.30.0",
-        "eslint": "^6.8.0",
-        "glob": "^7.1.6",
-        "mocha": "^7.1.2",
-        "typescript": "^3.8.3",
-        "vscode-test": "^1.3.0"
-    },
-    "dependencies": {}
+    "*.{css,less,scss,styl}": [
+      "stylelint --config .stylelintrc.js *.{css,less,scss,styl}"
+    ]
+  }
 }
