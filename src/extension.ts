@@ -1,10 +1,15 @@
 import * as vscode from 'vscode';
 import cssCompletion from './function/cssVariables';
 import tsxDefinition from './function/cssSkipInTSX';
-import { globalAliasPathConfig, globalPathConfig } from './util/config';
+import { globalAliasPathConfig, globalPathConfig, globalThemePackageConfig } from './util/config';
 import { CodelensProvider } from './function/cssCodeLens';
+import colorfully from './database/colorfully';
 
 export function activate(context: vscode.ExtensionContext) {
+  /* 主题初始化 */
+  const themePackage = globalThemePackageConfig.get();
+  if (themePackage) colorfully.initTheme(themePackage);
+
   /* CSS 变量补全 */
   cssCompletion(context);
 

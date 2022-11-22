@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
-import { globalPathConfig } from '../util/config';
+import colorfully from '../database/colorfully';
+import { globalPathConfig, globalThemePackageConfig } from '../util/config';
 import findCssVariables from '../util/findCssVariables';
 import { getWorkspaceRootPath } from '../util/path';
 
@@ -11,12 +12,20 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
     return;
   }
 
-  const variables = Object.assign({}, findCssVariables(path, path.split('.')?.[1] || 'css'));
+  const themePackage = globalThemePackageConfig.get();
+  const colorfullyItems = colorfully.getThemeCompletionItem(themePackage);
 
-  return Object.keys(variables).map(variable => {
+  const variables = Object.assign(
+    {},
+    !globalPathConfig.get() ? {} : findCssVariables(path, path.split('.')?.[1] || 'css')
+  );
+  const variableItems = Object.keys(variables).map(variable => {
     const variableValue = variables[variable];
 
-    const completionItem = new vscode.CompletionItem(variable, vscode.CompletionItemKind.Color);
+    const completionItem = new vscode.CompletionItem(
+      variable,
+      isNaN(parseFloat(variableValue)) ? vscode.CompletionItemKind.Color : vscode.CompletionItemKind.Value
+    );
 
     completionItem.insertText = `var(${variable})`;
     completionItem.detail = `${variable}: ${variableValue};`;
@@ -25,6 +34,8 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
 
     return completionItem;
   });
+
+  return [...colorfullyItems, ...[]];
 };
 
 export default function cssCompletion(context: vscode.ExtensionContext) {

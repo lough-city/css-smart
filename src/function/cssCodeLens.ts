@@ -40,7 +40,6 @@ export class CodelensProvider implements vscode.CodeLensProvider {
   }
 
   public async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken) {
-    // if (vscode.workspace.getConfiguration('codelens-sample').get('enableCodeLens', true)) {
     this.codeLenses = [];
     const regex = new RegExp(this.regex);
     const text = document.getText();
@@ -68,9 +67,8 @@ export class CodelensProvider implements vscode.CodeLensProvider {
         }
       }
     }
+
     return this.codeLenses;
-    // }
-    // return []
   }
 
   public resolveCodeLens(codeLens: vscode.CodeLens, token: vscode.CancellationToken) {

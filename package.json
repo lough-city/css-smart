@@ -17,6 +17,7 @@
     "onLanguage:typescriptreact",
     "onCommand:css-smart.setGlobalPath",
     "onCommand:css-smart.setGlobalAliasPath",
+    "onCommand:css-smart.setGlobalThemePackage",
     "onCommand:css-smart.codelensAction"
   ],
   "main": "./out/extension.js",
@@ -44,6 +45,11 @@
           "type": "string",
           "default": "",
           "description": "alias path"
+        },
+        "css-smart.setGlobalThemePackage": {
+          "type": "string",
+          "default": "",
+          "description": "theme package"
         }
       }
     }
@@ -81,6 +87,7 @@
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.0",
     "@types/vscode": "^1.54.0",
+    "colorfully": "^0.0.1",
     "glob": "^7.1.6",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
@@ -96,5 +103,9 @@
     "*.{css,less,scss,styl}": [
       "stylelint --config .stylelintrc.js *.{css,less,scss,styl}"
     ]
+  },
+  "dependencies": {
+    "@types/ws": "^8.5.3",
+    "ws": "^8.11.0"
   }
 }

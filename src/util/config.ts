@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { GLOBAL_ALIAS_PATH_KEY, GLOBAL_PATH_KEY } from '../constants/config';
+import { GLOBAL_ALIAS_PATH_KEY, GLOBAL_PATH_KEY, GLOBAL_THEME_PACKAGE } from '../constants/config';
 import { getWorkspaceRootPath } from './path';
 
 class ConfigConstruction {
@@ -40,3 +40,8 @@ export const globalPathConfig = new ConfigConstruction(GLOBAL_PATH_KEY);
  * 全局别名路径
  */
 export const globalAliasPathConfig = new ConfigConstruction(GLOBAL_ALIAS_PATH_KEY);
+
+/**
+ * 全局别名路径
+ */
+export const globalThemePackageConfig = new ConfigConstruction(GLOBAL_THEME_PACKAGE);

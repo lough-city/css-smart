@@ -5,3 +5,4 @@
 /es
 /release
 .eslintrc.js
+*.d.ts
