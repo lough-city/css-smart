@@ -11,6 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
   /* TSX 跳转 CSS 文件 */
   tsxDefinition(context);
 
+  /* 界面变量可使用提示 */
   vscode.languages.registerCodeLensProvider('css', new CodelensProvider());
   vscode.languages.registerCodeLensProvider('less', new CodelensProvider());
   vscode.languages.registerCodeLensProvider('scss', new CodelensProvider());

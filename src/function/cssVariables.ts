@@ -16,12 +16,12 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
   return Object.keys(variables).map(variable => {
     const variableValue = variables[variable];
 
-    const completionItem = new vscode.CompletionItem(variable, vscode.CompletionItemKind.Variable);
+    const completionItem = new vscode.CompletionItem(variable, vscode.CompletionItemKind.Color);
 
     completionItem.insertText = `var(${variable})`;
-    completionItem.detail = variableValue;
+    completionItem.detail = `${variable}: ${variableValue};`;
     completionItem.filterText = `${variable}: ${variableValue};`;
-    completionItem.documentation = `${variable}: ${variableValue};`;
+    completionItem.documentation = variableValue;
 
     return completionItem;
   });
