@@ -1,3 +1,5 @@
-export interface IObject {
-  [key: string]: string;
+export interface IVariable {
+  name?: string;
+  code: string;
+  value: string;
 }

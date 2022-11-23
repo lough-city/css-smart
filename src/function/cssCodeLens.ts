@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
+import colorfullyBase from '../database/colorfully';
+import variableBase from '../database/variables';
+import { IVariable } from '../typings';
 import { globalPathConfig } from '../util/config';
-import findCssVariables from '../util/findCssVariables';
 import { getWorkspaceRootPath } from '../util/path';
 
 const { CodeLens } = vscode;
@@ -15,10 +17,10 @@ class TipCodeLens extends CodeLens {
   }
 }
 
-function matchLessVariable(lessVariables: any, targetValue: string) {
-  for (const key in lessVariables) {
-    if (lessVariables[key].toLocaleLowerCase() === targetValue.toLocaleLowerCase()) {
-      return key;
+function matchVariable(variables: Array<IVariable>, targetValue: string) {
+  for (const variable of variables) {
+    if (variable.value.toLocaleLowerCase() === targetValue.toLocaleLowerCase()) {
+      return variable.code;
     }
   }
 }
@@ -50,13 +52,14 @@ export class CodelensProvider implements vscode.CodeLensProvider {
       return;
     }
 
-    const lessVariables = Object.assign({}, findCssVariables(path, path.split('.')?.[1] || 'css'));
+    const variables = [...colorfullyBase.getAll(), ...variableBase.getAll()];
     while ((matches = regex.exec(text)) !== null) {
       if (matches[0].includes('--')) {
         continue;
       }
 
-      matchedAlias = matchLessVariable(lessVariables, matches[1]);
+      matchedAlias = matchVariable(variables, matches[1]);
+
       if (matchedAlias) {
         const line = document.lineAt(document.positionAt(matches.index).line);
         const indexOf = line.text.indexOf(matches[1]);

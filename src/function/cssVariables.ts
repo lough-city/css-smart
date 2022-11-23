@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import colorfully from '../database/colorfully';
+import colorfullyBase from '../database/colorfully';
+import variableBase from '../database/variables';
 import { globalPathConfig, globalThemePackageConfig } from '../util/config';
-import findCssVariables from '../util/findCssVariables';
 import { getWorkspaceRootPath } from '../util/path';
 
 const provideCompletionItems = (document: vscode.TextDocument, position: vscode.Position) => {
@@ -12,30 +12,7 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
     return;
   }
 
-  const themePackage = globalThemePackageConfig.get();
-  const colorfullyItems = colorfully.getThemeCompletionItem(themePackage);
-
-  const variables = Object.assign(
-    {},
-    !globalPathConfig.get() ? {} : findCssVariables(path, path.split('.')?.[1] || 'css')
-  );
-  const variableItems = Object.keys(variables).map(variable => {
-    const variableValue = variables[variable];
-
-    const completionItem = new vscode.CompletionItem(
-      variable,
-      isNaN(parseFloat(variableValue)) ? vscode.CompletionItemKind.Color : vscode.CompletionItemKind.Value
-    );
-
-    completionItem.insertText = `var(${variable})`;
-    completionItem.detail = `${variable}: ${variableValue};`;
-    completionItem.filterText = `${variable}: ${variableValue};`;
-    completionItem.documentation = variableValue;
-
-    return completionItem;
-  });
-
-  return [...colorfullyItems, ...[]];
+  return [...colorfullyBase.getAllCompletionItems(), ...variableBase.getAllCompletionItems()];
 };
 
 export default function cssCompletion(context: vscode.ExtensionContext) {

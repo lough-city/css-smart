@@ -2,7 +2,8 @@
   "name": "css-smart",
   "displayName": "CSS Smart",
   "description": "a smart css helper.",
-  "version": "0.0.5",
+  "version": "0.0.6",
+  "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.54.0"
   },
@@ -30,6 +31,10 @@
       {
         "command": "css-smart.setGlobalAliasPath",
         "title": "CSS Smart: Set Global Alias Path"
+      },
+      {
+        "command": "css-smart.setGlobalThemePackage",
+        "title": "CSS Smart: Set Global Theme Package"
       }
     ],
     "configuration": {

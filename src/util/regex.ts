@@ -1,7 +1,5 @@
-import { IObject } from '../typings';
-
 export const execObjectByString = (REG: RegExp, str: string) => {
-  const obj: IObject = {};
+  const obj: Record<string, string> = {};
 
   let matched;
   while ((matched = REG.exec(str)) !== null) {
