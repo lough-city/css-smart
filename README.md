@@ -14,6 +14,8 @@ A smart css helper.
 
 - [`Colorfully`](https://www.npmjs.com/package/colorfully 'Colorfully') theme package intelligent code completion
 
+![colorfully.gif](https://raw.githubusercontent.com/AnCIity/css-smart/main/images/example/colorfully.gif)
+
 - TSX 文件内跳转 CSS 文件， 支持：.css .less .scss .styl
 
 - TSX file to CSS file, support:.css.less. scss.styl
