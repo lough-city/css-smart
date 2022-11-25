@@ -45,3 +45,7 @@ A smart css helper.
 3、`tsconfig.json` 在根目录下，则不需要配置。打开别名路径文件输入 `CSS Smart: Set Global Alias Path`
 
 3、'tsconfig.json' is in the root directory, so no configuration is required. Open the alias path file and type `CSS Smart: Set Global Alias Path`
+
+4、[`Colorfully`](https://www.npmjs.com/package/colorfully 'Colorfully') 主题包支持输入：`CSS Smart: Set Global Theme Package`
+
+4、[`Colorfully`](https://www.npmjs.com/package/colorfully 'Colorfully') theme packs support input：`CSS Smart: Set Global Theme Package`
