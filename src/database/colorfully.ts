@@ -14,7 +14,7 @@ class Colorfully {
     const p = join(getWorkspaceRootPath(), 'node_modules', name, 'lib/index.js');
 
     import(p).then(theme => {
-      this.map[name] = theme.default.exportConfig();
+      this.map[name] = theme.default.export();
     });
   }
 
