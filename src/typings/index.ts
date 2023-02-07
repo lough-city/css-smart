@@ -3,3 +3,8 @@ export interface IVariable {
   code: string;
   value: string;
 }
+
+export interface IClassName {
+  code: string;
+  value: string;
+}

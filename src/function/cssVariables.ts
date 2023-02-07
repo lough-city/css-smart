@@ -15,7 +15,7 @@ const provideCompletionItems = (document: vscode.TextDocument, position: vscode.
   return [...colorfullyBase.getAllCompletionItems(), ...variableBase.getAllCompletionItems()];
 };
 
-export default function cssCompletion(context: vscode.ExtensionContext) {
+export default function cssVariables(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider('css', { provideCompletionItems }, '--', 'var', 'var(')
   );

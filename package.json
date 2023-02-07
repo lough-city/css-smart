@@ -2,7 +2,7 @@
   "name": "css-smart",
   "displayName": "CSS Smart",
   "description": "a smart css helper.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.54.0"
@@ -15,10 +15,12 @@
     "onLanguage:less",
     "onLanguage:scss",
     "onLanguage:stylus",
+    "onLanguage:javascriptreact",
     "onLanguage:typescriptreact",
     "onCommand:css-smart.setGlobalPath",
     "onCommand:css-smart.setGlobalAliasPath",
     "onCommand:css-smart.setGlobalThemePackage",
+    "onCommand:css-smart.setGlobalClassName",
     "onCommand:css-smart.codelensAction"
   ],
   "main": "./out/extension.js",
@@ -35,6 +37,10 @@
       {
         "command": "css-smart.setGlobalThemePackage",
         "title": "CSS Smart: Set Global Theme Package"
+      },
+      {
+        "command": "css-smart.setGlobalClassName",
+        "title": "CSS Smart: Set Global Class Name"
       }
     ],
     "configuration": {
@@ -55,11 +61,20 @@
           "type": "string",
           "default": "",
           "description": "theme package"
+        },
+        "css-smart.setGlobalClassName": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "class name"
         }
       }
     }
   },
   "scripts": {
+    "package": "vsce package",
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
@@ -108,9 +123,5 @@
     "*.{css,less,scss,styl}": [
       "stylelint --config .stylelintrc.js *.{css,less,scss,styl}"
     ]
-  },
-  "dependencies": {
-    "@types/ws": "^8.5.3",
-    "ws": "^8.11.0"
   }
 }

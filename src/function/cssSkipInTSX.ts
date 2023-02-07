@@ -44,8 +44,9 @@ const provideDefinition = (document: vscode.TextDocument, position: vscode.Posit
   }
 };
 
-const tsxDefinition = (context: vscode.ExtensionContext) => {
+const cssSkipInTSX = (context: vscode.ExtensionContext) => {
+  context.subscriptions.push(vscode.languages.registerDefinitionProvider('javascriptreact', { provideDefinition }));
   context.subscriptions.push(vscode.languages.registerDefinitionProvider('typescriptreact', { provideDefinition }));
 };
 
-export default tsxDefinition;
+export default cssSkipInTSX;
