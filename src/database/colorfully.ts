@@ -2,40 +2,57 @@ import * as vscode from 'vscode';
 import { join } from 'path';
 import { getWorkspaceRootPath } from '../util/path';
 import { ColorfullyConfig } from 'colorfully';
-import { globalThemePackageConfig } from '../util/config';
 import { IVariable } from '../typings';
+import { globalThemePackageConfig } from '../util/config';
 
-class Colorfully {
+export class Colorfully {
   private map: Record<string, ColorfullyConfig> = {};
 
-  initTheme(name: string) {
-    if (this.map[name]) return;
+  private loadThemeExport(pack: string) {
+    if (this.map[pack]) return;
 
-    const p = join(getWorkspaceRootPath(), 'node_modules', name, 'lib/index.js');
+    const p = join(getWorkspaceRootPath(), 'node_modules', pack, 'lib/index.js');
 
-    import(p).then(theme => {
-      this.map[name] = theme.default.export();
+    return import(p).then(theme => {
+      this.map[pack] = theme.default.export();
     });
   }
 
+  private options: { paths?: Array<string> } = {};
+
+  init(parameters: { paths: Array<string> }) {
+    this.options = parameters;
+
+    return this;
+  }
+
+  async loadData() {
+    for (const path of this.options.paths || []) {
+      await this.loadThemeExport(path);
+    }
+  }
+
   getAll() {
-    const themePackage = globalThemePackageConfig.get();
-    const config = this.map[themePackage];
-    if (!config) return [];
-    const schema = config.schemas.find(i => i.code === 'default') || config.schemas[0];
+    const variables: Array<IVariable & { packName: string; styleName?: string; typeName?: string }> = [];
 
-    const variables: Array<IVariable & { styleName?: string; typeName?: string }> = [];
+    for (const pack in this.map) {
+      const config = this.map[pack];
+      if (!config) continue;
+      const schema = config.schemas.find(i => i.code === 'default') || config.schemas[0];
 
-    for (const scope in schema.map) {
-      const typeCode = schema.map[scope];
+      for (const scope in schema.map) {
+        const typeCode = schema.map[scope];
 
-      const style = config.styles.find(i => i.code === scope);
-      if (!style) continue;
-      let type = style.types.find(i => i.code === typeCode);
-      if (!type?.variables?.length) type = style.types.find(i => !!i.variables.length);
-      if (!type) continue;
+        const style = config.styles.find(i => i.code === scope);
+        if (!style) continue;
+        let type = style.types.find(i => i.code === typeCode);
+        if (!type?.variables?.length) type = style.types.find(i => !!i.variables.length);
+        if (!type) continue;
 
-      variables.push(...type.variables.map(v => ({ ...v, styleName: style?.name, typeName: type?.name })));
+        variables.push(
+          ...type.variables.map(v => ({ ...v, packName: pack, styleName: style?.name, typeName: type?.name }))
+        );
+      }
     }
 
     return variables;
@@ -51,7 +68,7 @@ class Colorfully {
       completionItem.insertText = `var(${variable.code})`;
       completionItem.detail = `${variable.code}: ${variable.value};`;
       completionItem.filterText = `${variable.code}: ${variable.value};`;
-      completionItem.documentation = `${variable?.styleName} ${variable?.typeName} ${variable.name}：${variable.value}`;
+      completionItem.documentation = `${variable.packName}\n${variable?.styleName} ${variable?.typeName} ${variable.name}：${variable.value}`;
 
       return completionItem;
     });
@@ -59,5 +76,7 @@ class Colorfully {
 }
 
 const colorfullyBase = new Colorfully();
+
+colorfullyBase.init({ paths: globalThemePackageConfig.get() });
 
 export default colorfullyBase;

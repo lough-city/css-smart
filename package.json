@@ -1,12 +1,16 @@
 {
   "name": "css-smart",
+  "private": true,
   "displayName": "CSS Smart",
   "description": "a smart css helper.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.54.0"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "categories": [
     "Language Packs"
   ],
@@ -17,22 +21,14 @@
     "onLanguage:stylus",
     "onLanguage:javascriptreact",
     "onLanguage:typescriptreact",
-    "onCommand:css-smart.setGlobalPath",
-    "onCommand:css-smart.setGlobalAliasPath",
-    "onCommand:css-smart.setGlobalThemePackage",
-    "onCommand:css-smart.setGlobalClassName",
     "onCommand:css-smart.codelensAction"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "css-smart.setGlobalPath",
-        "title": "CSS Smart: Set Global Visible Path"
-      },
-      {
-        "command": "css-smart.setGlobalAliasPath",
-        "title": "CSS Smart: Set Global Alias Path"
+        "command": "css-smart.setGlobalVariablePath",
+        "title": "CSS Smart: Set Global Variable Path"
       },
       {
         "command": "css-smart.setGlobalThemePackage",
@@ -41,40 +37,52 @@
       {
         "command": "css-smart.setGlobalClassName",
         "title": "CSS Smart: Set Global Class Name"
+      },
+      {
+        "command": "css-smart.setGlobalLanguagePackage",
+        "title": "CSS Smart: Set Global Language Package"
       }
     ],
     "configuration": {
       "type": "object",
       "title": "CSS Smart",
       "properties": {
-        "css-smart.globalPath": {
-          "type": "string",
-          "default": "",
-          "description": "global visible path"
-        },
-        "css-smart.globalAliasPath": {
-          "type": "string",
-          "default": "",
-          "description": "alias path"
-        },
-        "css-smart.setGlobalThemePackage": {
-          "type": "string",
-          "default": "",
-          "description": "theme package"
-        },
-        "css-smart.setGlobalClassName": {
+        "css-smart.globalVariablePath": {
           "type": "array",
           "items": {
             "type": "string"
           },
           "default": [],
-          "description": "class name"
+          "description": "variable path 变量路径"
+        },
+        "css-smart.globalThemePackage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "theme package 主题包"
+        },
+        "css-smart.globalClassName": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "class name 类名"
+        },
+        "css-smart.globalLanguagePackage": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "language package 语言包"
         }
       }
     }
   },
   "scripts": {
-    "package": "vsce package",
+    "package": "npm run changelog && vsce package",
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
@@ -83,7 +91,8 @@
     "test": "node ./out/test/runTest.js",
     "lint:es": "eslint -c .eslintrc.js --ext .ts,.tsx ./",
     "lint:es-fix": "eslint --fix -c .eslintrc.js --ext .ts,.tsx ./",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "changelog": "lough-git changelog -c ."
   },
   "publisher": "City",
   "repository": {
@@ -103,6 +112,7 @@
   "devDependencies": {
     "@lough/commitlint-config": "^0.1.1",
     "@lough/eslint-config": "^0.1.0",
+    "@lough/git-cli": "^0.0.5",
     "@types/glob": "^7.1.1",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.11.0",
@@ -115,6 +125,9 @@
     "prettier": "^2.7.1",
     "typescript": "^3.8.3",
     "vscode-test": "^1.3.0"
+  },
+  "dependencies": {
+    "@css-smart/config": "0.2.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

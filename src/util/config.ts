@@ -1,17 +1,27 @@
 import * as vscode from 'vscode';
-import { GLOBAL_ALIAS_PATH_KEY, GLOBAL_CLASS_NAME, GLOBAL_PATH_KEY, GLOBAL_THEME_PACKAGE } from '../constants/config';
+import {
+  GLOBAL_ALIAS_PATH_KEY,
+  GLOBAL_CLASS_NAME,
+  GLOBAL_LANGUAGE_PACKAGE,
+  GLOBAL_VARIABLE_PATH_KEY,
+  GLOBAL_THEME_PACKAGE
+} from '../constants/config';
 import { getWorkspaceRootPath } from './path';
 
 class ConfigConstruction<T = string> {
   public key: string;
   public type: 'string' | 'array';
-  constructor(key: string, type: 'string' | 'array' = 'string') {
+  private callback?: (p: T) => T;
+  constructor(key: string, type: 'string' | 'array' = 'string', callback?: (p: T) => T) {
     this.key = key;
     this.type = type;
+    this.callback = callback;
   }
 
   get() {
-    return vscode.workspace.getConfiguration().get(this.key, this.type === 'string' ? '' : []) as any as T;
+    const v = vscode.workspace.getConfiguration().get(this.key, this.type === 'string' ? '' : []) as any as T;
+
+    return this.callback ? this.callback(v) : v;
   }
 
   set(v: T) {
@@ -39,19 +49,32 @@ class ConfigConstruction<T = string> {
 /**
  * 全局变量路径
  */
-export const globalPathConfig = new ConfigConstruction(GLOBAL_PATH_KEY);
+export const globalVariablePathConfig = new ConfigConstruction<Array<string>>(GLOBAL_VARIABLE_PATH_KEY, 'array', v => {
+  const oldV = vscode.workspace.getConfiguration().get('css-smart.globalPath') as string;
+  return oldV ? [oldV, ...v] : v;
+});
 
 /**
  * 全局别名路径
+ * @deprecated
  */
 export const globalAliasPathConfig = new ConfigConstruction(GLOBAL_ALIAS_PATH_KEY);
 
 /**
  * 全局主题包路径
  */
-export const globalThemePackageConfig = new ConfigConstruction(GLOBAL_THEME_PACKAGE);
+export const globalThemePackageConfig = new ConfigConstruction<Array<string>>(GLOBAL_THEME_PACKAGE, 'array', v =>
+  Array.isArray(v) ? v : [v]
+);
 
 /**
- * 全局主类名路径
+ * 全局类名路径
  */
-export const globalClassNameConfig = new ConfigConstruction<Array<string>>(GLOBAL_CLASS_NAME, 'array');
+export const globalClassNameConfig = new ConfigConstruction<Array<string>>(GLOBAL_CLASS_NAME, 'array', v =>
+  Array.isArray(v) ? v : [v]
+);
+
+/**
+ * 全局语言包路径
+ */
+export const globalLanguagePackageConfig = new ConfigConstruction<Array<string>>(GLOBAL_LANGUAGE_PACKAGE, 'array');
