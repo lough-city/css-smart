@@ -1,16 +1,15 @@
 import * as vscode from 'vscode';
 import colorfullyBase from '../database/colorfully';
-import variableBase from '../database/variables';
+import languagePackageBase from '../database/languagePackage';
+import variablesBase from '../database/variables';
 import { IVariable } from '../typings';
-import { globalPathConfig } from '../util/config';
-import { getWorkspaceRootPath } from '../util/path';
 
 const { CodeLens } = vscode;
 
 class TipCodeLens extends CodeLens {
-  constructor(fileName: string, range: any, alias: string, value: string) {
+  constructor(fileName: string, range: any, alias: string, value: string, useFunc: any) {
     super(range, {
-      arguments: [alias, value, fileName, range],
+      arguments: [alias, value, fileName, range, useFunc],
       command: 'css-smart.codelensAction',
       title: `${value} can use ${alias}`
     });
@@ -41,18 +40,21 @@ export class CodelensProvider implements vscode.CodeLensProvider {
     this.onDidChangeCodeLenses = this._onDidChangeCodeLenses.event;
   }
 
-  public async provideCodeLenses(document: vscode.TextDocument, token: vscode.CancellationToken) {
+  public async provideCodeLenses(document: vscode.TextDocument) {
     this.codeLenses = [];
     const regex = new RegExp(this.regex);
     const text = document.getText();
-    const path = getWorkspaceRootPath() + globalPathConfig.get();
     let matches, matchedAlias;
 
-    if (path === '' || path === document.uri.fsPath) {
-      return;
-    }
+    const variables = [
+      ...languagePackageBase.base.colorfully.getAll(),
+      ...languagePackageBase.base.variables.getAll(),
+      ...colorfullyBase.getAll(),
+      ...variablesBase.getAll()
+    ];
 
-    const variables = [...colorfullyBase.getAll(), ...variableBase.getAll()];
+    if (!variables.length) return this.codeLenses;
+
     while ((matches = regex.exec(text)) !== null) {
       if (matches[0].includes('--')) {
         continue;
@@ -65,8 +67,13 @@ export class CodelensProvider implements vscode.CodeLensProvider {
         const indexOf = line.text.indexOf(matches[1]);
         const position = new vscode.Position(line.lineNumber, indexOf);
         const range = document.getWordRangeAtPosition(position, new RegExp(/([^:\s;]+)/g));
+
         if (range) {
-          this.codeLenses.push(new TipCodeLens(document.fileName, range, matchedAlias, matches[1]));
+          const useFunc = languagePackageBase.statFunc({ name: 'VariableCodelens', targetValue: matches[0] });
+          const params = { targetValue: matches[0], value: matchedAlias };
+          this.codeLenses.push(
+            new TipCodeLens(document.fileName, range, matchedAlias, matches[1], () => useFunc(params))
+          );
         }
       }
     }

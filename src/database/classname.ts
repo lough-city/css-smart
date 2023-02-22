@@ -1,27 +1,26 @@
-import * as vscode from 'vscode';
-import * as fs from 'fs';
 import { join } from 'path';
+import * as vscode from 'vscode';
 import { IClassName } from '../typings';
 import { globalClassNameConfig } from '../util/config';
-import { getWorkspaceRootPath } from '../util/path';
 import findCssClassName from '../util/findCssClassName';
+import { getWorkspaceRootPath } from '../util/path';
 
-const findFilePath = (path: string) => {
-  const isDir = fs.existsSync(join(getWorkspaceRootPath(), path));
-  if (isDir) return join(getWorkspaceRootPath(), path);
+export class ClassName {
+  private options: { paths?: Array<string> } = {};
 
-  const json = JSON.parse(
-    fs.readFileSync(join(getWorkspaceRootPath(), 'node_modules', path, 'package.json'), { encoding: 'utf-8' })
-  );
+  init(parameters: { paths: Array<string> }) {
+    this.options = parameters;
 
-  return join(getWorkspaceRootPath(), 'node_modules', path, json.style);
-};
+    return this;
+  }
 
-class ClassName {
   getAll(): Array<IClassName> {
-    if (!globalClassNameConfig.get()) return [];
-    const paths = globalClassNameConfig.get();
-    const map = Object.assign({}, ...paths.map(path => findCssClassName(findFilePath(path))));
+    if (!this.options.paths?.length) return [];
+
+    const map = Object.assign(
+      {},
+      ...this.options.paths.map(path => findCssClassName(join(getWorkspaceRootPath(), path)))
+    );
 
     return Object.keys(map).map(code => ({ code, value: map[code] }));
   }
@@ -44,5 +43,7 @@ class ClassName {
 }
 
 const classNameBase = new ClassName();
+
+classNameBase.init({ paths: globalClassNameConfig.get() });
 
 export default classNameBase;

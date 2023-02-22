@@ -1,0 +1,82 @@
+{
+  "compilerOptions": {
+    /* 基本配置 */
+
+    // 编译成哪个版本的 es
+    "target": "ES2015",
+
+    // 指定生成哪个模块系统代码
+    "module": "CommonJS",
+
+    // 编译过程中需要引入的库文件的列表
+    "lib": ["ES6"],
+
+    // 允许编译 js 文件
+    "allowJs": false,
+
+    // 输出声明文件
+    "declaration": true,
+
+    // 输出目录
+    "outDir": "./lib",
+
+    // 提供额外的一些语法检查
+    "isolatedModules": false,
+
+    // 启用所有严格类型检查选项
+    "strict": true,
+
+    // 对于隐含有'any'类型的表达式和声明引发错误
+    "noImplicitAny": false,
+
+    // 启用严格的空检查
+    "strictNullChecks": true,
+
+    /* 模块解析选项 */
+
+    // 指定模块解析策略
+    "moduleResolution": "node",
+
+    // 支持 CommonJS 和 ES 模块之间的互操作性
+    "esModuleInterop": true,
+
+    // 支持导入 json 模块
+    "resolveJsonModule": false,
+
+    /* 映射路径 */
+
+    // 基础路径
+    // "baseUrl": "./src",
+
+    // 配置映射,需要依赖: tsconfig-paths | webpack | ...
+    // "paths": {
+    //   "@libs/*": ["libs/*"],
+    //   "@middleware/*": ["middleware/*"],
+    //   "@router/*": ["router/*"],
+    //   "@constants/*": ["constants/*"],
+    //   "@typings/*": ["typings/*"],
+    //   "@utils/*": ["utils/*"]
+    // },
+
+    /* 实验性选项 */
+
+    // 启用实验性的ES装饰器
+    "experimentalDecorators": false,
+
+    // 给源码里的装饰器声明加上设计类型元数据
+    "emitDecoratorMetadata": false,
+
+    /* 其他选项 */
+
+    // 禁止对同一个文件的不一致的引用
+    "forceConsistentCasingInFileNames": true,
+
+    // 忽略所有的声明文件（ *.d.ts）的类型检查
+    "skipLibCheck": true,
+
+    // 允许从没有设置默认导出的模块中默认导入
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["./index.ts"],
+  "exclude": ["node_modules"]
+}

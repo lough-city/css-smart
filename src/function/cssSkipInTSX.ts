@@ -1,22 +1,12 @@
-import path from 'path';
 import * as vscode from 'vscode';
-import * as fs from 'fs';
-import { globalAliasPathConfig } from '../util/config';
-import { getWorkspaceRootPath } from '../util/path';
-import { execObjectByString } from '../util/regex';
-import { PATH_ALIAS_REG, PATH_BASE_URL_REG } from '../constants/regex';
+import languagePackageBase from '../database/languagePackage';
+import tsAliasBase from '../database/tsAlias';
 
 const provideDefinition = (document: vscode.TextDocument, position: vscode.Position) => {
-  const configPath = globalAliasPathConfig.get();
-  const content = fs.readFileSync(
-    configPath ? getWorkspaceRootPath() + configPath : path.resolve(getWorkspaceRootPath(), 'tsconfig.json'),
-    'utf-8'
-  );
-  const aliasDict = execObjectByString(PATH_ALIAS_REG, content);
-  const baseUrl = PATH_BASE_URL_REG.exec(content)?.[1] || '';
   const fileName = document.fileName;
   const word = document.getText(document.getWordRangeAtPosition(position, /('(.*?)')|("(.*?)") /));
   const line = document.lineAt(position);
+  const lineText = document.getText(new vscode.Range(new vscode.Position(position.line, 0), position));
 
   if (
     line.text.includes('.css') ||
@@ -24,21 +14,11 @@ const provideDefinition = (document: vscode.TextDocument, position: vscode.Posit
     line.text.includes('.scss') ||
     line.text.includes('.styl')
   ) {
-    let importPath = word.replaceAll(`'`, '').replaceAll(`“`, '');
+    const useFunc = languagePackageBase.statFunc({ name: 'FileSkip', targetValue: lineText });
 
-    let locationPath = '';
-    const key = Object.keys(aliasDict).find(alias => importPath.includes(alias));
-    if (key) {
-      importPath = importPath.replace(key, aliasDict[key]);
+    const locationPath = tsAliasBase.getLocationPath({ fileName, word });
 
-      if (baseUrl) {
-        locationPath = path.resolve(getWorkspaceRootPath(), baseUrl, importPath);
-      } else {
-        locationPath = path.resolve(getWorkspaceRootPath(), importPath);
-      }
-    } else {
-      locationPath = path.resolve(path.dirname(fileName), importPath);
-    }
+    useFunc({ targetValue: lineText, value: locationPath });
 
     return new vscode.Location(vscode.Uri.file(locationPath), new vscode.Position(0, 0));
   }

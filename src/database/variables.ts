@@ -1,17 +1,28 @@
+import { join } from 'path';
 import * as vscode from 'vscode';
-import { existsSync } from 'fs';
 import { IVariable } from '../typings';
-import { globalPathConfig } from '../util/config';
+import { globalVariablePathConfig } from '../util/config';
 import findCssVariables from '../util/findCssVariables';
 import { getWorkspaceRootPath } from '../util/path';
 
-class Variables {
-  getAll(): Array<IVariable> {
-    if (!globalPathConfig.get()) return [];
-    const path = getWorkspaceRootPath() + globalPathConfig.get();
-    if (!existsSync(path)) return [];
+export class Variables {
+  private options: { paths?: Array<string> } = {};
 
-    const map = Object.assign({}, findCssVariables(path, path.split('.')?.[1] || 'css'));
+  init(parameters: { paths: Array<string> }) {
+    this.options = parameters;
+
+    return this;
+  }
+
+  getAll(): Array<IVariable> {
+    if (!this.options.paths?.length) return [];
+
+    const map = Object.assign(
+      {},
+      ...this.options.paths.map(path =>
+        findCssVariables(join(getWorkspaceRootPath(), path), path.split('.')?.[1] || 'css')
+      )
+    );
 
     return Object.keys(map).map(code => ({ code, value: map[code] }));
   }
@@ -33,6 +44,8 @@ class Variables {
   }
 }
 
-const variableBase = new Variables();
+const variablesBase = new Variables();
 
-export default variableBase;
+variablesBase.init({ paths: globalVariablePathConfig.get() });
+
+export default variablesBase;

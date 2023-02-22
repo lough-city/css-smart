@@ -18,7 +18,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 
 
-### Colorfully 主题包
+### 主题包 Colorfully
 
 > [`Colorfully`](https://www.npmjs.com/package/colorfully 'Colorfully') 主题包智能代码补全。
 >
@@ -34,13 +34,13 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 
 
-### Variable Completion 变量补全
+### 变量补全 Variable Completion
 
 > 自动检测可补全的变量。
 >
 > Automatically detects completable variables.
 
-`vscode command`: `CSS Smart: Set Global Visible Path`
+`vscode command`: `CSS Smart: Set Global Variable Path`
 
 `support`: `.css` `.less` `.scss`
 
@@ -52,7 +52,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 
 
-### Variable  Codelens 变量映射
+### 变量映射 Variable  Codelens
 
 > 自动检测可使用变量的值。
 >
@@ -68,7 +68,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 
 
-### ClassName Completion 类名补全
+### 类名补全 ClassName Completion
 
 > 自动检测可提示补全的类名。
 >
@@ -78,31 +78,72 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 `support`: `.jsx` `.tsx`
 
+`explain`: 打开全局类名文件设置。（Open global class name file Settings.）
+
 `effect`: 
 
 ![colorfully.gif](https://raw.githubusercontent.com/AnCIity/css-smart/main/images/example/classname.gif)
 
 
 
-### File Skip  文件跳转
-
-> TSX 文件内跳转 CSS 文件。
+> 通过工作区配置我们可以很好的让配置跟随项目同步，但是如何跟随 `NPM` 包统一配置统一更新呢？
 >
-> TSX file to CSS file.
-
-`vscode command`: `CSS Smart: Set Global Alias Path`
-
-`support`: `.jsx` `.tsx`
-
-`explain`: `tsconfig.json` 在根目录下，则不需要配置。（`tsconfig.json` is in the root directory, so no configuration is required. ）
-
-`effect`: 
-
-![skip.gif](https://www.hualigs.cn/image/60641d89b5a02.jpg)
+> Workspace configuration is a good way to synchronize the configuration with the project, but how to update it with the 'NPM' package unified configuration?
 
 
 
-## About
+## 语言包 Language Package
+
+为支持 `CSS Smart` 语言支持的模块化，使其可复用，更符合现代工程化规范，我们将通过以下方案进行。
+
+In order to support the modularity supported by 'CSS Smart' language, make it reusable and more in line with modern engineering specifications, we will adopt the following scheme.
+
+
+
+### 开发 Develop
+
+我们可以在包（可以是你的主题包内、又或者是定制语言包）内进行以下操作：
+
+We can do the following in a package (either in your theme package or in a custom language package) :
+
+1. install `@css-smart/config`
+
+   ```bash
+   npm i @css-smart/config
+   ```
+
+2. create `css.smart.config.js`
+
+   ```javascript
+   const { defineLanguagePackageConfig } = require('@css-smart/config');
+   
+   module.exports = defineLanguagePackageConfig({
+     themePackage: ['@lyrical/theme'],
+     classNamePath: ['./class.css'],
+     variablePath: ['./variable.css'],
+     lifeCycle: {
+       mount(...args) {
+         console.log('mount', args);
+       },
+       func(...args) {
+         console.log('func', args);
+       }
+     }
+   });
+   ```
+
+3. Publish your language package.
+
+
+
+### 使用 USE
+
+1. install your language package.
+2. `vscode command`: `CSS Smart: Set Global Language Package`
+
+
+
+## 关于 About
 
 相关问题请在 [ISSUES](https://github.com/AnCIity/css-smart/issues) 提出。
 

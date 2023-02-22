@@ -1,0 +1,36 @@
+{
+  "name": "@css-smart/config",
+  "version": "0.0.3",
+  "description": "CSS Smart language package config!",
+  "keywords": [
+    "css",
+    "typescript"
+  ],
+  "author": {
+    "name": "City",
+    "email": "city@nanzc.com",
+    "url": "https://nanzc.com"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnCIity/css-smart.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AnCIity/css-smart/issues"
+  },
+  "homepage": "https://github.com/AnCIity/css-smart#readme",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  }
+}
