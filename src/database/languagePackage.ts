@@ -62,8 +62,9 @@ class LanguagePackage {
   }
 
   private handlePath(pathList: Array<string> = []) {
+    const isDir = existsSync(join(getWorkspaceRootPath(), this.options.paths?.[0] || ''));
     return pathList.map(path => {
-      return join('node_modules', this.options.paths?.[0] || '', path);
+      return isDir ? path : join('node_modules', this.options.paths?.[0] || '', path);
     });
   }
 

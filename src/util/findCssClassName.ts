@@ -1,6 +1,22 @@
 import * as fs from 'fs';
 import { CLASS_NAME_REG } from '../constants/regex';
-import { execObjectByString } from './regex';
+
+const execObjectByString = (REG: RegExp, str: string) => {
+  const obj: Record<string, string> = {};
+
+  let matched: any;
+  while ((matched = REG.exec(str)) !== null) {
+    // obj[matched[1]] = matched[2];
+    const classNames = matched[1].split(',');
+    classNames.forEach((className: any) => {
+      if (className?.includes(':')) return;
+
+      obj[className.replace(/^\./, '')] = matched[2];
+    });
+  }
+
+  return obj;
+};
 
 /**
  * 查找文件里的css类名
