@@ -48,7 +48,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 `effect`: 
 
-![variable.gif](https://www.hualigs.cn/image/60641d89d8b7f.jpg)
+![variable.gif](https://raw.githubusercontent.com/AnCIity/css-smart/main/images/example/variable.gif)
 
 
 
@@ -64,7 +64,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 `effect`: 
 
-![codelens.gif](https://www.hualigs.cn/image/60641d89c6f8a.jpg)
+![codelens.gif](https://raw.githubusercontent.com/AnCIity/css-smart/main/images/example/codelens.gif)
 
 
 
