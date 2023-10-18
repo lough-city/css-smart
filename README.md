@@ -42,7 +42,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 `vscode command`: `CSS Smart: Set Global Variable Path`
 
-`support`: `.css` `.less` `.scss`
+`support`: `.css` `.less` `.scss` `.sass` `.styl` `.vue` `.wxss` `.acss` `.ttss`
 
 `explain`: 打开全局变量文件设置。（Open global variable file Settings.）
 
@@ -58,7 +58,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 >
 > Automatically detects the value of a usable variable.
 
-`support`: `.css` `.less` `.scss`
+`support`: `.css` `.less` `.scss` `.sass` `.styl` `.vue` `.wxss` `.acss` `.ttss`
 
 `explain`: 读取主题包以及变量补全设置的变量进行匹配。Read Colorfully and Variable Completion Settings for variable matching.
 
@@ -76,7 +76,7 @@ The `vscode command` panel can be opened using `ctrl+shift+p`.
 
 `vscode command`: `CSS Smart: Set Global Class Name`
 
-`support`: `.jsx` `.tsx`
+`support`: `.jsx` `.tsx`  `.vue`  `.html`  `.wxml`  `.axml`  `.ttml`
 
 `explain`: 打开全局类名文件设置。（Open global class name file Settings.）
 

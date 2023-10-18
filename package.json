@@ -3,7 +3,7 @@
   "private": true,
   "displayName": "CSS Smart",
   "description": "a smart css helper.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "icon": "images/icon.png",
   "engines": {
     "vscode": "^1.54.0"
@@ -18,9 +18,18 @@
     "onLanguage:css",
     "onLanguage:less",
     "onLanguage:scss",
+    "onLanguage:sass",
     "onLanguage:stylus",
+    "onLanguage:wxss",
+    "onLanguage:acss",
+    "onLanguage:ttss",
     "onLanguage:javascriptreact",
     "onLanguage:typescriptreact",
+    "onLanguage:vue",
+    "onLanguage:html",
+    "onLanguage:wxml",
+    "onLanguage:axml",
+    "onLanguage:ttml",
     "onCommand:css-smart.codelensAction"
   ],
   "main": "./out/extension.js",

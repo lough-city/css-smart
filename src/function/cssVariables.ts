@@ -48,6 +48,26 @@ export default function cssVariables(context: vscode.ExtensionContext) {
   );
 
   context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider('sass', { provideCompletionItems }, '--', 'var', 'var(')
+  );
+
+  context.subscriptions.push(
     vscode.languages.registerCompletionItemProvider('stylus', { provideCompletionItems }, '--', 'var', 'var(')
+  );
+
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider('vue', { provideCompletionItems }, '--', 'var', 'var(')
+  );
+
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider('wxss', { provideCompletionItems }, '--', 'var', 'var(')
+  );
+
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider('acss', { provideCompletionItems }, '--', 'var', 'var(')
+  );
+
+  context.subscriptions.push(
+    vscode.languages.registerCompletionItemProvider('ttss', { provideCompletionItems }, '--', 'var', 'var(')
   );
 }

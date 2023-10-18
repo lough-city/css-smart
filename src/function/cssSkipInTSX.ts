@@ -12,6 +12,7 @@ const provideDefinition = (document: vscode.TextDocument, position: vscode.Posit
     line.text.includes('.css') ||
     line.text.includes('.less') ||
     line.text.includes('.scss') ||
+    line.text.includes('.sass') ||
     line.text.includes('.styl')
   ) {
     const useFunc = languagePackageBase.statFunc({ name: 'FileSkip', targetValue: lineText });

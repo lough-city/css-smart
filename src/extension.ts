@@ -41,6 +41,12 @@ export async function activate(context: vscode.ExtensionContext) {
   vscode.languages.registerCodeLensProvider('css', new CodelensProvider());
   vscode.languages.registerCodeLensProvider('less', new CodelensProvider());
   vscode.languages.registerCodeLensProvider('scss', new CodelensProvider());
+  vscode.languages.registerCodeLensProvider('sass', new CodelensProvider());
+  vscode.languages.registerCodeLensProvider('stylus', new CodelensProvider());
+  vscode.languages.registerCodeLensProvider('vue', new CodelensProvider());
+  vscode.languages.registerCodeLensProvider('wxss', new CodelensProvider());
+  vscode.languages.registerCodeLensProvider('acss', new CodelensProvider());
+  vscode.languages.registerCodeLensProvider('ttss', new CodelensProvider());
 
   context.subscriptions.push(
     // 设置全局变量文件
